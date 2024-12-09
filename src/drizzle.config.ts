@@ -4,8 +4,8 @@ export default defineConfig({
   schema: "./db",
   out: "./drizzle",
   dbCredentials: {
-    host: "postgres_container",
-    port: 543,
+    host: "localhost",
+    port: 5432,
     database: "mydb",
     user: "postgres",
     password: "root",
