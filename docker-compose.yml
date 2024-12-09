@@ -1,0 +1,30 @@
+services:
+  backend:
+    build:
+      context: ./
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:root@postgres_container:5432/mydb
+
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:17
+    container_name: postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: mydb
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
