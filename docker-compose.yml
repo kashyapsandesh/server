@@ -5,7 +5,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:root@localhost:5432/mydb
+      - DATABASE_URL=postgresql://postgres:root@db:5432/mydb
 
     depends_on:
       - db
@@ -16,7 +16,7 @@ services:
   db:
     image: postgres:17
     ports:
-      - "5432:5432"
+      - 5432:5432
     container_name: postgres_container
     restart: always
     environment:
@@ -26,6 +26,8 @@ services:
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   # postgres:
   #   image: postgres:14-alpine
