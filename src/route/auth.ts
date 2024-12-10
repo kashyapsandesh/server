@@ -15,6 +15,7 @@ authRouter.post(
   async (req: Request<{}, {}, SignupBody>, res: Response) => {
     try {
       const { name, email, password } = req.body;
+      console.log(req.body);
       const existingUser = await db
         .select()
         .from(users)
@@ -30,6 +31,7 @@ authRouter.post(
         email,
         password: hashpassword,
       };
+      console.log(`newUser`, newUser);
       const [user] = await db.insert(users).values(newUser).returning();
       res.status(201).json(user);
     } catch (error) {
